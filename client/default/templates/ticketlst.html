@@ -1,0 +1,25 @@
+<h2>Ticket List</h2>
+<button class="btn btn-default" ng-click="clearAuth()">Clear Login Cookie</button>
+    <h4>{{tickets.length}} tickets</h4>
+
+    <hr/>
+    <table class="table table-striped">
+        <tr>
+            <th>Account No.</th>
+            <th>Account</th>
+            <th>Ticket No.</th>
+            <th>Received Date</th>
+            <th>Status</th>
+            <th>Completed Date</th>
+            <th></th>
+        </tr>
+        <tr ng-repeat="ticket in tickets" ng-click="showTicket(ticket)">
+            <td>{{ticket.EXTERNALACCOUNTNO}}</td>
+            <td>{{ticket.ACCOUNT}}</td>
+            <td>{{ticket.TICKETNO}}</td>
+            <td>{{ticket.RECEIVEDDATE}}</td>
+            <td>{{ticket.STATUS}}</td>
+            <td>{{ticket.COMPLETEDDATE}}</td>
+            <td class="text-left">>></td>
+        </tr>
+    </table>

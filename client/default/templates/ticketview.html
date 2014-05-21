@@ -1,0 +1,438 @@
+<div ng-repeat="ticket in tickets">
+<div class="text-right"><button class="btn btn-default" ng-click="back()">Back</button></div>
+<h2>Ticket Detail: Ticket No. {{ticket.TICKETNO}}</h2>
+    <script type="text/ng-template" id="myModalContent.html">
+        <div class="modal-header">
+            <h3 class="modal-title">Load No.:&nbsp;{{loadno}}</h3>
+        </div>
+        <div class="modal-body">
+            <table class="table table-striped">
+                <tr>
+                    <th class="text-center">Load Order</th>
+                    <th>Feed Category</th>
+                    <th>Feed Sub-category</th>
+                    <th>Description</th>
+                    <th class="text-right">Actual DM %</th>
+                    <th class="text-right">Actual Qty</th>
+                    <th class="text-right">Target Qty</th>
+                    <th class="text-right">Load Error</th>
+                    <th class="text-right">Load Error (%)</th>
+                    <th class="text-right">Start Rev.</th>
+                    <th class="text-right">End Rev.</th>
+                </tr>
+                <tr ng-repeat="item in load | orderBy: 'C_Position'">
+                    <td class="text-center">{{item.C_Position | number : 0}}</td>
+                    <td>{{item.FeedCategoryDesc}}</td>
+                    <td>{{item.FeedSubCategoryDesc}}</td>
+                    <td>{{item.ComponentName}}</td>
+                    <td class="text-right">{{item.C_ActualDMPercentage*100 | number : 0}}%</td>
+                    <td class="text-right">{{item.C_ActualQty | number : 2}}</td>
+                    <td class="text-right">{{item.C_TargetLoadSize | number : 2}}</td>
+                    <td class="text-right">{{item.calcLoadDiff | number : 2}}</td>
+                    <td class="text-right">{{item.calcLoadDiffPercent*100 | number : 0}}%</td>
+                    <td class="text-right">{{item.C_Start_Rotation | number : 0}}</td>
+                    <td class="text-right">{{item.C_End_Rotation | number : 0}}</td>
+                </tr>
+            </table>
+        </div>
+        <div class="modal-footer">
+            <button class="btn btn-warning" ng-click="close()">Close</button>
+        </div>
+    </script>
+    <script type="text/ng-template" id="myModalTicketEdit.html">
+        <div class="modal-header">
+            <h3>Ticket Response</h3>
+        </div>
+        <form ng-submit="submit()">
+            <div class="modal-body">
+                <label>Action:</label>
+                <textarea class="form-control" rows="5" ng-model="ticket.SOLUTION" /><br/><br/>
+                <table class="table">
+                    <tr><td><label>Status:</label></td><td><select ng-model="ticket.STATUS" ng-required="tRequired">
+                        <option value="">Select status</option>
+                        <option ng-repeat="item in statuslist">{{item}}</option>
+                    </select></td></tr>
+                    <tr><td><label>Completed:</label></td><td><input type="date" ng-model="ticket.COMPLETEDDATE" ng-required="ticket.STATUS==='Closed'"/></td></tr>
+                </table>
+            </div>
+            <div class="modal-footer">
+                <input type="submit" class="btn primary-btn" value="Submit" />
+                <button class="btn btn-warning" ng-click="cancel()">Cancel</button>
+            </div>
+        </form>
+    </script>
+<div ng-controller="ctrlEditModal">
+    <table class="table table-striped">
+        <tr><th>Ticket No:</th><th>&nbsp;&nbsp;{{ticket.TICKETNO}}</th></tr>
+        <tr><td>Account No:</td><td>&nbsp;&nbsp;{{ticket.EXTERNALACCOUNTNO}}</td></tr>
+        <tr><td>Account:</td><td>&nbsp;&nbsp;{{ticket.ACCOUNT}}</td></tr>
+        <tr><td>Date:</td><td>&nbsp;&nbsp;{{ticket.RECEIVEDDATE}}</td></tr>
+        <tr><td>Subject:</td><td>&nbsp;&nbsp;{{ticket.SUBJECT}}</td></tr>
+        <tr><td>Status:</td><td>&nbsp;&nbsp;{{ticket.STATUS}}</td></tr>
+        <tr><td>Completed Date:</td><td>&nbsp;&nbsp;{{ticket.COMPLETEDDATE}}</td></tr>
+        <tr><td>Solution:</td><td>&nbsp;&nbsp;{{ticket.SOLUTION}}</td></tr>
+    </table>
+    <button class="btn btn-default" ng-click="edit('lg', ticket)">Edit</button>
+
+    </div>
+    <hr/>
+    <div ng-hide="hideDIV(dataSet, 'deProduction')">
+        <h4>No RPM for 60 Days</h4>
+        <table class="table table-striped">
+            <tr>
+                <th>Execution Date</th>
+                <th>Last Production Date</th>
+                <th class="text-right">Lapse Days</th>
+            </tr>
+            <tr ng-repeat="item in dataSet | filter: {TableName: 'tblProduction'} | filter: {deProduction: '1'}">
+                <td>{{item.ExecutionDate | date}}</td>
+                <td>{{item.LastProductionDate | date}}</td>
+                <td class="text-right">{{item.DayDiff}}</td>
+            </tr>
+        </table>
+        <hr/>
+    </div>
+
+    <div ng-hide="hideDIV(dataSet, 'deRPMFCEMin')">
+        <h4>FCE Minimum</h4>
+        <table class="table table-striped">
+            <tr>
+                <th>Date</th>
+                <th class="text-center">PACE</th>
+                <th class="text-center">Reviewed</th>
+                <th class="text-center">Validated</th>
+                <th class="text-right">FCE</th>
+                <th class="text-right">Market FCE</th>
+                <th class="text-right">Difference</th>
+                <th class="text-right">Yield</th>
+                <th class="text-right">DMI</th>
+                <th class="text-right">Cows</th>
+                <th class="text-right">DIM</th>
+                <th class="text-right">Fat</th>
+                <th class="text-right">Protein</th>
+            </tr>
+            <tr ng-repeat="item in dataSet | filter: {TableName: 'tblMilkingCowRPM'} | filter: {deRPMFCEMin: '1'}">
+                <td>{{item.RPM_DATE | date}}</td>
+                <td class="text-center">{{item.BLACKBOX}}</td>
+                <td class="text-center">{{item.REVIEWED}}</td>
+                <td class="text-center">{{item.VALIDATED}}</td>
+                <td class="text-right">{{item.FCE | number : 2}}</td>
+                <td class="text-right">{{item.avgRPMFCE | number : 2}}</td>
+                <td class="text-right">{{item.calcFCEMinDiff | number : 2}}</td>
+                <td class="text-right">{{item.YIELD | number : 1}}</td>
+                <td class="text-right">{{item.DMI | number : 1}}</td>
+                <td class="text-right">{{item.COWSINMILK | number : 0}}</td>
+                <td class="text-right">{{item.DAYSINMILK | number : 0}}</td>
+                <td class="text-right">{{item.FAT | number : 2}}%</td>
+                <td class="text-right">{{item.PROTEIN | number : 2}}%</td>
+            </tr>
+        </table>
+        <hr/>
+    </div>
+    <div ng-hide="hideDIV(dataSet, 'deRPMDMI')">
+        <h4>Dry Matter Intake</h4>
+        <table class="table table-striped">
+            <tr>
+                <th>Date</th>
+                <th class="text-center">PACE</th>
+                <th class="text-center">Reviewed</th>
+                <th class="text-center">Validated</th>
+                <th class="text-right">DMI</th>
+                <th class="text-right">Animal Size</th>
+                <th class="text-right">DM/Weight</th>
+                <th class="text-right">DIM</th>
+                <th class="text-right">DIM Factor</th>
+                <th class="text-right">DMI/Adjust. Weight %</th>
+                <th class="text-right">FCE</th>
+            </tr>
+            <tr ng-repeat="item in dataSet | filter: {TableName: 'tblMilkingCowRPM'} | filter: {deRPMDMI: '1'}">
+                <td>{{item.RPM_DATE | date}}</td>
+                <td class="text-center">{{item.BLACKBOX}}</td>
+                <td class="text-center">{{item.REVIEWED}}</td>
+                <td class="text-center">{{item.VALIDATED}}</td>
+                <td class="text-right">{{item.DMI | number : 1}}</td>
+                <td class="text-right">{{item.ANIMALSIZE | number : 0}}</td>
+                <td class="text-right">{{item.calcRPMDMI_Weight | number : 0}}</td>
+                <td class="text-right">{{item.DAYSINMILK | number : 0}}</td>
+                <td class="text-right">{{item.facRPMDMI | number : 2}}</td>
+                <td class="text-right">{{item.calcRPMDMI_Adj_Weight*100 | number : 2}}</td>
+                <td class="text-right">{{item.FCE | number : 2}}</td>
+            </tr>
+        </table>
+        <hr/>
+    </div>
+    <div ng-hide="hideDIV(dataSet, 'deRPMFCETrend')">
+        <h4>FCE Trend</h4>
+        <table class="table table-striped">
+            <tr>
+                <th>Date</th>
+                <th class="text-center">PACE</th>
+                <th class="text-center">Reviewed</th>
+                <th class="text-center">Validated</th>
+                <th class="text-right">FCE</th>
+                <th class="text-right">Previous FCE</th>
+                <th class="text-right">FCE Change</th>
+                <th class="text-right">FCE Change %</th>
+                <th class="text-right">Fat</th>
+                <th class="text-right">Protein</th>
+                <th class="text-right">Yield</th>
+                <th class="text-right">Avg. Yield</th>
+                <th class="text-right">DMI</th>
+                <th class="text-right">Avg. DMI</th>
+                <th class="text-right">Cows</th>
+                <th class="text-right">DIM</th>
+            </tr>
+            <tr ng-repeat="item in dataSet | filter: {TableName: 'tblMilkingCowRPM'} | filter: {deRPMFCETrend: '1'}">
+                <td>{{item.RPM_DATE | date}}</td>
+                <td class="text-center">{{item.BLACKBOX}}</td>
+                <td class="text-center">{{item.REVIEWED}}</td>
+                <td class="text-center">{{item.VALIDATED}}</td>
+                <td class="text-right">{{item.FCE | number : 2}}</td>
+                <td class="text-right">{{item.valRPMFCETrend | number : 2}}</td>
+                <td class="text-right">{{item.calcRPMFCETrendChange | number : 2}}</td>
+                <td class="text-right">{{item.calcRPMFCETrendChangePercent*100 | number : 2}}</td>
+                <td class="text-right">{{item.FAT*100 | number : 2}}</td>
+                <td class="text-right">{{item.PROTEIN*100 | number : 2}}</td>
+                <td class="text-right">{{item.YIELD | number : 1}}</td>
+                <td class="text-right">{{item.valRPMFCETrend_YIELD | number : 1}}</td>
+                <td class="text-right">{{item.DMI | number : 1}}</td>
+                <td class="text-right">{{item.valRPMFCETrend_DMI | number : 1}}</td>
+                <td class="text-right">{{item.COWSINMILK | number : 0}}</td>
+                <td class="text-right">{{item.DAYSINMILK | number : 0}}</td>
+            </tr>
+        </table>
+        <hr/>
+    </div>
+    <div ng-controller="ctrlLoadModal" ng-hide="hideDIV(dataSet, 'deIngredientQty')">
+        <h4>Ingredient Tolerance</h4>
+        <table class="table table-striped">
+            <tr>
+                <th>Execution Date</th>
+                <th>Load ID</th>
+                <th>Recipe ID</th>
+                <th>Recipe</th>
+                <th>Herd Type</th>
+                <th>Pen ID</th>
+                <th>Pen</th>
+                <th>Description</th>
+                <th>Feed Category</th>
+                <th>Feed Sub-category</th>
+                <th class="text-right">Actual Load</th>
+                <th class="text-right">Target Load</th>
+                <th class="text-right">Diff.</th>
+                <th class="text-right">Diff. %</th>
+            </tr>
+            <tr ng-repeat="item in dataSet | filter: {TableName: 'tblIngredientQty'} | filter: {deIngredientQty: '1'}">
+                <td>{{item.ExecutionDate | date}}</td>
+                <td><button class="btn btn-default" ng-click="open('lg', ticket, item.ID_Load)">{{item.ID_Load}}</button></td>
+                <td>{{item.ID_DTM_Recipe}}</td>
+                <td>{{item.RecipeName}}</td>
+                <td>{{item.Diet_Type}}</td>
+                <td>{{item.ID_DTM_Pen}}</td>
+                <td>{{item.PenDescription}}</td>
+                <td>{{item.ComponentName}}</td>
+                <td>{{item.FeedCategoryDesc}}</td>
+                <td>{{item.FeedSubCategoryDesc}}</td>
+                <td class="text-right">{{item.C_ActualQty | number : 2}}</td>
+                <td class="text-right">{{item.C_TargetLoadSize | number : 2}}</td>
+                <td class="text-right">{{item.calcLoadDiff | number : 2}}</td>
+                <td class="text-right">{{item.calcLoadDiffPercent*100 | number : 0}}%</td>
+            </tr>
+        </table>
+        <hr/>
+    </div>
+    <div ng-hide="hideDIV(dataSet, 'deDryALF')">
+        <h4>ALF Dry Cow</h4>
+        <table class="table table-striped">
+            <tr>
+                <th class="text-center">Recipe ID</th>
+                <th>Recipe</th>
+                <th class="text-center">Pen ID</th>
+                <th>Pen</th>
+                <th>Herd Type</th>
+                <th class="text-center">Load ID</th>
+                <th>Execution Date</th>
+                <th class="text-right">Ration</th>
+                <th class="text-right">Cows</th>
+                <th class="text-right">DMI Total</th>
+                <th class="text-right">ALF</th>
+                <th class="text-right">ALF/Cow</th>
+            </tr>
+            <tr ng-repeat="item in dataSet | filter: {TableName: 'tblIngredientQty'} | filter: {deDryALF: '1'}">
+                <td class="text-center">{{item.ID_DTM_Recipe | number : 0}}</td>
+                <td>{{item.RecipeName}}</td>
+                <td class="text-center">{{item.ID_DTM_Pen | number : 0}}</td>
+                <td>{{item.PenDescription}}</td>
+                <td>{{item.Diet_Type}}</td>
+                <td class="text-center">{{item.ID_Load | number : 0}}</td>
+                <td>{{item.ExecutionDate | date}}</td>
+                <td class="text-right">{{item.CowsInMilk | number : 0}}</td>
+                <td class="text-right">{{item.CowsInMilkTeoScale | number : 0}}</td>
+                <td class="text-right">{{item.calcDMI_Total | number : 1}}</td>
+                <td class="text-right">{{item.R_ActualDMADL | number : 1}}</td>
+                <td class="text-right">{{item.calcDryALF_Cow | number : 1}}</td>
+            </tr>
+        </table>
+        <hr/>
+    </div>
+    <div ng-hide="hideDIV(dataSet, 'deDMITrend')">
+        <h4>DMI Trend</h4>
+        <table class="table table-striped">
+            <tr>
+                <th class="text-center">Pen ID</th>
+                <th>Pen</th>
+                <th>Date</th>
+                <th class="text-right">DMI Current</th>
+                <th class="text-right">DMI Previous</th>
+                <th class="text-right">Change</th>
+                <th class="text-right">Change %</th>
+                <th class="text-right">Cows</th>
+                <th class="text-right">Prev. Cows</th>
+                <th class="text-right">Loads Current</th>
+                <th class="text-right">Loads Previous</th>
+                <th class="text-right">Days Of Feed</th>
+            </tr>
+            <tr ng-repeat="item in dataSet | filter: {TableName: 'tblDMITrend'} | filter: {deDMITrend: '1'}">
+                <td class="text-center">{{item.ID_DTM_Pen | number : 0}}</td>
+                <td>{{item.PenDescription}}</td>
+                <td>{{item.ExecutionDate | date}}</td>
+                <td class="text-right">{{item.DMI1 | number : 2}}</td>
+                <td class="text-right">{{item.DMI2 | number : 2}}</td>
+                <td class="text-right">{{item.calcDMITrendChange | number : 2}}</td>
+                <td class="text-right">{{item.calcDMITrendChangePercent*100 | number : 1}}%</td>
+                <td class="text-right">{{item.CowsInMilkTeoScale1 | number : 0}}</td>
+                <td class="text-right">{{item.CowsInMilkTeoScale2 | number : 0}}</td>
+                <td class="text-right">{{item.NoOfLoads1 | number : 0}}</td>
+                <td class="text-right">{{item.NoOfLoads2 | number : 0}}</td>
+                <td class="text-right">{{item.nDaysOfFeedTarget | number : 0}}</td>
+            </tr>
+        </table>
+        <hr/>
+    </div>
+    <div ng-hide="hideDIV(dataSet, 'deRevs')">
+        <h4>Revolutions Tolerance</h4>
+        <table class="table table-striped">
+            <tr>
+                <th class="text-center">Recipe ID</th>
+                <th>Recipe</th>
+                <th class="text-center">Pen ID</th>
+                <th>Pen</th>
+                <th>Herd Type</th>
+                <th class="text-center">Load ID</th>
+                <th>Execution Date</th>
+                <th class="text-right">Actual Revs.</th>
+                <th class="text-right">Target Revs.</th>
+                <th class="text-right">Tolerance</th>
+                <th class="text-right">Diff.</th>
+                <th class="text-right">Diff. %</th>
+            </tr>
+            <tr ng-repeat="item in dataSet | filter: {TableName: 'tblIngredientQty'} | filter: {deRevs: '1'}">
+                <td class="text-center">{{item.ID_DTM_Recipe | number : 0}}</td>
+                <td>{{item.RecipeName}}</td>
+                <td class="text-center">{{item.ID_DTM_Pen | number : 0}}</td>
+                <td>{{item.PenDecsription}}</td>
+                <td>{{item.Diet_Type}}</td>
+                <td class="text-center">{{item.ID_Load | number : 0}}</td>
+                <td>{{item.ExecutionDate | date}}</td>
+                <td class="text-right">{{item.R_ActualMixRevs | number : 0}}</td>
+                <td class="text-right">{{item.R_TargetMixRevs | number : 0}}</td>
+                <td class="text-right">{{item.tolRevs*100 | number : 1}}%</td>
+                <td class="text-right">{{item.calcRevsDiff | number : 0}}</td>
+                <td class="text-right">{{item.calcRevsDiffPercent*100 | number : 2}}%</td>
+            </tr>
+        </table>
+        <hr/>
+    </div>
+    <div ng-hide="hideDIV(dataSet, 'deDMPercent')">
+        <h4>Dry Matter > 45%</h4>
+        <table class="table table-striped">
+            <tr>
+                <th class="text-center">Recipe ID</th>
+                <th>Recipe</th>
+                <th class="text-center">Pen ID</th>
+                <th>Pen</th>
+                <th>Herd Type</th>
+                <th class="text-center">Load ID</th>
+                <th>Execution Date</th>
+                <th class="text-right">Dry Matter</th>
+                <th class="text-right">Fresh Weight</th>
+                <th class="text-right">Target</th>
+                <th class="text-right">DM %</th>
+            </tr>
+            <tr ng-repeat="item in dataSet | filter: {TableName: 'tblIngredientQty'} | filter: {deDMPercent: '1'}">
+                <td class="text-center">{{item.ID_DTM_Recipe | number : 0}}</td>
+                <td>{{item.RecipeName}}</td>
+                <td class="text-center">{{item.ID_DTM_Pen | number : 0}}</td>
+                <td>{{item.PenDescription}}</td>
+                <td>{{item.Diet_Type}}</td>
+                <td class="text-center">{{item.ID_Load | number : 0}}</td>
+                <td>{{item.ExecutionDate | date}}</td>
+                <td class="text-right">{{item.R_ActualDMISize | number : 0}}</td>
+                <td class="text-right">{{item.R_ActualLoadSize | number : 0}}</td>
+                <td class="text-right">{{item.tolDMPercent*100 | number : 1}}%</td>
+                <td class="text-right">{{item.calcDMIPercent*100 | number : 1}}%</td>
+            </tr>
+
+        </table>
+        <hr/>
+    </div>
+    <div ng-hide="hideDIV(dataSet, 'deDryDMI')">
+        <h4>Dry Cow DMI</h4>
+        <table class="table table-striped">
+            <tr>
+                <th class="text-center">Recipe ID</th>
+                <th>Recipe</th>
+                <th class="text-center">Pen ID</th>
+                <th>Pen</th>
+                <th>Herd Type</th>
+                <th class="text-center">Load ID</th>
+                <th>Execution Date</th>
+                <th class="text-right">Ration</th>
+                <th class="text-right">Cows</th>
+                <th class="text-right">DMI Total</th>
+                <th>DMI/Cow</th>
+            </tr>
+            <tr ng-repeat="item in dataSet | filter: {TableName: 'tblIngredientQty'} | filter: {deDryDMI: '1'}">
+                <td class="text-center">{{item.ID_DTM_Recipe | number : 0}}</td>
+                <td>{{item.RecipeName}}</td>
+                <td class="text-center">{{item.ID_DTM_Pen | number : 0}}</td>
+                <td>{{item.PenDescription}}</td>
+                <td>{{item.Diet_Type}}</td>
+                <td class="text-center">{{item.ID_Load | number : 0}}</td>
+                <td>{{item.ExecutionDate | date}}</td>
+                <td class="text-right">{{item.CowsInMilk | number : 0}}</td>
+                <td class="text-right">{{item.CowsInMilkTeoScale | number : 0}}</td>
+                <td class="text-right">{{item.calcDMI_Total | number : 1}}</td>
+                <td class="text-right">{{item.calcDryDMI_Cow | number : 2}}%</td>
+            </tr>
+        </table>
+        <hr/>
+    </div>
+
+    <!--<pre>{{dtIngredientQty | json }}</pre>-->
+</div>
+<!--
+<div ng-controller="ctrlLoadModal">
+    <script type="text/ng-template" id="myModalContent.html">
+        <div class="modal-header">
+            <h3 class="modal-title">I'm a modal!</h3>
+        </div>
+        <div class="modal-body">
+            <ul>
+                <li ng-repeat="item in items">
+                    <a ng-click="selected.item = item">{{ item }}</a>
+                </li>
+            </ul>
+            Selected: <b>{{ selected.item }}</b>
+        </div>
+        <div class="modal-footer">
+            <button class="btn btn-primary" ng-click="ok()">OK</button>
+            <button class="btn btn-warning" ng-click="cancel()">Cancel</button>
+        </div>
+    </script>
+
+    <button class="btn btn-default" ng-click="open()">Open me!</button>
+    <button class="btn btn-default" ng-click="open('lg')">Large modal</button>
+    <button class="btn btn-default" ng-click="open('sm')">Small modal</button>
+    <div ng-show="selected">Selection from a modal: {{ selected }}</div>-->
+</div>
