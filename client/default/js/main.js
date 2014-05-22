@@ -1,4 +1,4 @@
-var app = angular.module('inTouchLogApp', ['ui.bootstrap', 'inTouchLogApp.directives', 'inTouchLogApp.services', 'ngRoute']);
+var app = angular.module('inTouchLogApp', ['ui.bootstrap', 'inTouchLogApp.directives', 'inTouchLogApp.services', 'ngRoute', 'ngTouch']);
 
 app.config(['$routeProvider',
     function($routeProvider, $location){
@@ -80,6 +80,24 @@ app.controller('ctrlView', ['$scope', '$location', 'TicketLoader', 'LoginService
     $scope.back = function(){
         window.tickets = $scope.tickets;
         $location.path("/");
+    };
+
+    $scope.prevTicket = function(){
+        $scope.direction = 'right';
+    };
+
+    $scope.nextTicket = function(){
+        $scope.direction = 'left';
+    };
+
+    getTicketID = function(id, ){
+        var tickets = JSON.parse(localStorage.getItem('intouchtickets'));
+        for(var i = 0; i < tickets.length; i++){
+            if(tickets[i].TICKETID === id){
+                ticket.push(tickets[i]);
+                break;
+            }
+        }
     };
 }]);
 

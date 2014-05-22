@@ -5,4 +5,7 @@ body {
 [ng-click] {
     cursor: pointer;
 }
+.nonDraggableImage{
+    -webkit-user-drag: none;
+}
 

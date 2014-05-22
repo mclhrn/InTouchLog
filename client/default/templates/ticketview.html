@@ -1,4 +1,4 @@
-<div ng-repeat="ticket in tickets">
+<div ng-repeat="ticket in tickets" ng-swipe-right="prevTicket()" ng-swipe-left="nextTicket()">
 <div class="text-right"><button class="btn btn-default" ng-click="back()">Back</button></div>
 <h2>Ticket Detail: Ticket No. {{ticket.TICKETNO}}</h2>
     <script type="text/ng-template" id="myModalContent.html">
