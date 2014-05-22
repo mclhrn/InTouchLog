@@ -28,6 +28,7 @@ $fh.db({
  }
  });
 
+
  var initialTicketData = require('AppData/tickets.json');
 
  $fh.db({
@@ -42,9 +43,9 @@ $fh.db({
  }
  });
 */
-
-var TicketData = require('AppData/tickets.json');
 /*
+var TicketData = require('AppData/tickets.json');
+
 createjson = function(ticketid, callback){
     var ticketitem = [];
     for(var i = 0; i < TicketData.length; i++ ){
@@ -70,7 +71,6 @@ createjson = function(ticketid, callback){
 */
 
 exports.tickets = function(params, callback) {
-    /*
     $fh.db({
         "act": "list",
         "type": "ticket"
@@ -88,9 +88,6 @@ exports.tickets = function(params, callback) {
             return callback(null, mydata);
         }
     })
-    */
-    return callback(null, TicketData);
-
 };
 
 exports.updateTicket = function(params, callback){
