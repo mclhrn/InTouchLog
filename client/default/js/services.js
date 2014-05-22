@@ -1,6 +1,9 @@
 ﻿var services = angular.module('inTouchLogApp.services', ['ngResource']);
 
 services.service('LoginService', function() {
+
+    return true;
+
     this.isAuth = function () {
         if (localStorage.getItem('intouchlogauth')) {
             return true;

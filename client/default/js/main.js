@@ -58,7 +58,6 @@ app.controller('ctrlView', ['$scope', '$location', 'TicketLoader', 'LoginService
     var id = $location.path().substring($location.path().indexOf("/",2)+1);
 
     $scope.tickets = TicketLoader.getTicket(id);
-    window.tickets = $scope.tickets;
     $scope.dataSet = TicketLoader.getDataSet($scope.tickets[0]);
     if(!$scope.$$phase) {
         $scope.$apply();
@@ -79,6 +78,7 @@ app.controller('ctrlView', ['$scope', '$location', 'TicketLoader', 'LoginService
     };
 
     $scope.back = function(){
+        window.tickets = $scope.tickets;
         $location.path("/");
     };
 }]);
