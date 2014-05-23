@@ -83,21 +83,37 @@ app.controller('ctrlView', ['$scope', '$location', 'TicketLoader', 'LoginService
     };
 
     $scope.prevTicket = function(){
+        var id = $location.path().substring($location.path().indexOf("/",2)+1);
+        var newid = getTicketID(id,"-");
         $scope.direction = 'right';
+        $location.path('/view/' + newid);
     };
 
     $scope.nextTicket = function(){
+        var id = $location.path().substring($location.path().indexOf("/",2)+1);
+        var newid = getTicketID(id,"+");
         $scope.direction = 'left';
+        $location.path('/view/' + newid);
     };
 
-    getTicketID = function(id, ){
+    getTicketID = function(id, action){
         var tickets = JSON.parse(localStorage.getItem('intouchtickets'));
+        var ticket = [];
         for(var i = 0; i < tickets.length; i++){
             if(tickets[i].TICKETID === id){
-                ticket.push(tickets[i]);
+                if(action === "+"){
+                    ticket.push(tickets[i+1]);
+                }
+                else if(action === "-"){
+                    ticket.push(tickets[i-1]);
+                }
+                else{
+                    ticket.push(tickets[i]);
+                }
                 break;
             }
         }
+        return ticket.TICKETID;
     };
 }]);
 
