@@ -24,7 +24,7 @@ services.service('MultiTicketLoader', function(){
                 console.error('An error occured: ' + msg + ' : ' + err);
             }
         );
-    }
+    };
 });
 
 
@@ -85,7 +85,7 @@ services.service('TicketLoader', function() {
             }
         }
         return newArray;
-    }
+    };
 });
 
 services.service('LoadLoader', function(){
@@ -95,15 +95,15 @@ services.service('LoadLoader', function(){
         for (var i = 0; i < array.DATASET.length ; i++) {
             if (array.DATASET[i].DATATABLENAME === tableName) {
                 var myArray = array.DATASET[i].DATATABLE;
-                for(var i = 0; i < myArray.length; i++){
-                    if(myArray[i]['ID_Load'] === loadid){
-                        loadArray.push(myArray[i]);
+                for(var j = 0; j < myArray.length; j++){
+                    if(myArray[j]['ID_Load'] === loadid){
+                        loadArray.push(myArray[j]);
                     }
                 }
             }
         }
         return loadArray;
-    }
+    };
 });
 
 services.service('updateTickets', function(){
