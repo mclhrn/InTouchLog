@@ -1,4 +1,4 @@
-﻿var services = angular.module('inTouchLogApp.services', ['ngResource'];
+var services = angular.module('inTouchLogApp.services', ['ngResource']);
 
 services.service('LoginService', function() {
     this.isAuth = function () {
