@@ -34,7 +34,7 @@ app.controller('ctrlList', ['$scope', '$location', 'LoginService', 'MultiTicketL
         window.tickets = $scope.tickets;
 
         $scope.showTicket = function(ticket){
-            $location.path('/view/' + ticket.TICKETID)
+            $location.path('/view/' + ticket.TICKETID);
         };
 
         $scope.clearAuth = function(){
