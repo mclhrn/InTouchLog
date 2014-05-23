@@ -96,7 +96,7 @@ services.service('LoadLoader', function(){
             if (array.DATASET[i].DATATABLENAME === tableName) {
                 var myArray = array.DATASET[i].DATATABLE;
                 for(var j = 0; j < myArray.length; j++){
-                    if(myArray[j]['ID_Load'] === loadid){
+                    if(myArray[j].ID_Load === loadid){
                         loadArray.push(myArray[j]);
                     }
                 }
