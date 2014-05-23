@@ -95,13 +95,8 @@ app.controller('ctrlView', ['$scope', '$location', 'TicketLoader', 'LoginService
         $scope.direction = 'left';
         $location.path('/view/' + newid);
     };
-<<<<<<< HEAD
 
-    getTicketID = function(id, action){
-=======
-/*
-    getTicketID = function(id, ){
->>>>>>> c056da208210ff7d8023fc85c375df90465ee79c
+    getTicketID = function(id,action){
         var tickets = JSON.parse(localStorage.getItem('intouchtickets'));
         var ticket = [];
         for(var i = 0; i < tickets.length; i++){
@@ -121,7 +116,7 @@ app.controller('ctrlView', ['$scope', '$location', 'TicketLoader', 'LoginService
         return ticket.TICKETID;
     };
 }]);
-*/
+
 
 app.controller('ctrlEdit', ['$scope', '$location', 'ticket',
     function($scope, $location, ticket){
