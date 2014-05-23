@@ -125,7 +125,7 @@ app.controller('ctrlEdit', ['$scope', '$location', 'ticket',
         $scope.save = function(){
             $scope.ticket.$save(function(ticket){
                 $location.path('/view/' + ticket.id);
-            })
+            });
         };
 
         $scope.remove = function(){
