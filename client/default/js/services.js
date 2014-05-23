@@ -122,7 +122,7 @@ services.service('updateTickets', function(){
                 //console.error('An error occured: ' + msg + ' : ' + err);
             }
         );
-    }
+    };
 });
 
 /*
