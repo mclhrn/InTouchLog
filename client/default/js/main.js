@@ -164,7 +164,7 @@ app.controller('ctrlLogin', function($scope, $location) {
                 console.error('An error occured: ' + code + ' : ' + JSON.stringify(errorprops));
             }
         );
-    }
+    };
 });
 
 //http://plnkr.co/edit/bfpma2?p=preview login example
