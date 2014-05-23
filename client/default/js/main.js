@@ -89,7 +89,7 @@ app.controller('ctrlView', ['$scope', '$location', 'TicketLoader', 'LoginService
     $scope.nextTicket = function(){
         $scope.direction = 'left';
     };
-
+/*
     getTicketID = function(id, ){
         var tickets = JSON.parse(localStorage.getItem('intouchtickets'));
         for(var i = 0; i < tickets.length; i++){
@@ -100,7 +100,7 @@ app.controller('ctrlView', ['$scope', '$location', 'TicketLoader', 'LoginService
         }
     };
 }]);
-
+*/
 
 app.controller('ctrlEdit', ['$scope', '$location', 'ticket',
     function($scope, $location, ticket){
