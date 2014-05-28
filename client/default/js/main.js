@@ -1,4 +1,4 @@
-var app = angular.module('inTouchLogApp', ['ui.bootstrap', 'inTouchLogApp.directives', 'inTouchLogApp.services', 'ngRoute', 'ngTouch']);
+var app = angular.module('inTouchLogApp', ['ui.bootstrap', 'inTouchLogApp.directives', 'inTouchLogApp.services', 'ngRoute','ngTouch']);
 
 app.config(['$routeProvider',
     function($routeProvider, $location){
@@ -101,10 +101,10 @@ app.controller('ctrlView', ['$scope', '$location', 'TicketLoader', 'LoginService
         var ticket = [];
         for(var i = 0; i < tickets.length; i++){
             if(tickets[i].TICKETID === id){
-                if(action === "+"){
+                if(action === "+" && i+1 < tickets.length){
                     ticket.push(tickets[i+1]);
                 }
-                else if(action === "-"){
+                else if(action === "-" && i != 0){
                     ticket.push(tickets[i-1]);
                 }
                 else{
@@ -113,7 +113,7 @@ app.controller('ctrlView', ['$scope', '$location', 'TicketLoader', 'LoginService
                 break;
             }
         }
-        return ticket.TICKETID;
+        return ticket[0].TICKETID;
     };
 }]);
 
