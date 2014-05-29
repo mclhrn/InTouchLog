@@ -18,14 +18,8 @@ retrieved by the app from the cloud on start up.
 
 
 var config = {
-//    "analyticsTag":{
-//        "tag_name":"",
-//        "updated":1400844912084
-//    },
-    "appid":"Nb1beF43RO6RxvWKVZxDjl8D",
-    "appkey":"d8f2c452cfddaa34324cc54dc7530c3af7bf2b24",
-    "host":"https://keenansystem.feedhenry.com",
-    "mode":"dev"
+  param1 : 'Initial value',
+  param2 : true
 };
 
 exports.config = config;
