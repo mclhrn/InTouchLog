@@ -7,10 +7,12 @@ call which will return the remote config.
 */
 
 $fh.ready(function() {
+  $fh.init(config);
+  
   // The local config variable from config.js can be accessed directly
-  document.getElementById('localConfig').innerHTML = "<p>" + JSON.stringify(config) + "</p>";
+ // document.getElementById('localConfig').innerHTML = "<p>" + JSON.stringify(config) + "</p>";
 
-  document.getElementById('run_button').onclick = function() {
+  //document.getElementById('run_button').onclick = function() {
     // Invoke a cloud action call to get the remote configuration
     // See: http://docs.feedhenry.com/wiki/Actions
       /*
@@ -26,5 +28,5 @@ $fh.ready(function() {
       }
     );
     */
-  };
+  //};
 });
