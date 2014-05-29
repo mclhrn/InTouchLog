@@ -1,21 +1,12 @@
 var app = angular.module('inTouchLogApp', ['ui.bootstrap', 'inTouchLogApp.directives', 'inTouchLogApp.services', 'ngRoute','ngTouch']);
 
-app.controller('GreetingController', ['$scope', function($scope) {
-  $scope.greeting = 'Hola!';
-}]);
-
 app.config(['$routeProvider',
     function($routeProvider, $location){
 
         $routeProvider
-        .when('/', {
-                controller: 'GreetingController',
-                templateUrl: '../templates/ticketlst.html'
-        });
-        /*
             .when('/', {
                 controller: 'ctrlList',
-                templateUrl: '../templates/ticketlst.html'
+                templateUrl: 'templates/ticketlst.html'
             })
             .when('/login', {
                 controller: 'ctrlLogin',
@@ -26,12 +17,8 @@ app.config(['$routeProvider',
                 templateUrl: '../templates/ticketview.html'
             })
            .otherwise({redirect: '/'});
-      */
 }]);
-/*
-*/
 
-/*
 app.controller('ctrlList', ['$scope', '$location', 'LoginService', 'MultiTicketLoader',
     function($scope, $location, LoginService, MultiTicketLoader){
 
@@ -237,4 +224,3 @@ app.controller('ctrlEditModalInstance', ['$scope', '$modalInstance', 'ticket', '
     };
 
 }]);
-*/
