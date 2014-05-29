@@ -16,8 +16,8 @@ app.config(['$routeProvider',
                 controller: 'ctrlView',
                 templateUrl: '../templates/ticketview.html'
             })
-*/
            .otherwise({redirect: '/'});
+*/
 }]);
 
 app.controller('ctrlList', ['$scope', '$location', 'LoginService', 'MultiTicketLoader',
