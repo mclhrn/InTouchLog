@@ -6,7 +6,7 @@ app.config(['$routeProvider',
         $routeProvider
             .when('/', {
                 controller: 'ctrlList',
-                templateUrl: 'templates/ticketlst.html'
+                templateUrl: '../templates/ticketlst.html'
             })
             .when('/login', {
                 controller: 'ctrlLogin',
