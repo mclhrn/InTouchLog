@@ -10,11 +10,11 @@ app.config(['$routeProvider',
             })
             .when('/login', {
                 controller: 'ctrlLogin',
-                templateUrl: '../templates/login.html'
+                templateUrl: 'templates/login.html'
             })
             .when('/view/:ticketid', {
                 controller: 'ctrlView',
-                templateUrl: '../templates/ticketview.html'
+                templateUrl: 'templates/ticketview.html'
             })
            .otherwise({redirect: '/'});
 }]);
