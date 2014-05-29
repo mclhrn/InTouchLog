@@ -1,6 +1,6 @@
 var app = angular.module('inTouchLogApp', ['ui.bootstrap', 'inTouchLogApp.directives', 'inTouchLogApp.services', 'ngRoute','ngTouch']);
 
-app.config(['$routeProvider', '$location',
+app.config(
     function($routeProvider, $location){
 
         $routeProvider
@@ -17,7 +17,7 @@ app.config(['$routeProvider', '$location',
                 templateUrl: '../templates/ticketview.html'
             })
             .otherwise({redirect: '/'});
-}]);
+});
 
 app.controller('ctrlList', ['$scope', '$location', 'LoginService', 'MultiTicketLoader',
     function($scope, $location, LoginService, MultiTicketLoader){
