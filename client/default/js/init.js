@@ -7,7 +7,7 @@ call which will return the remote config.
 */
 
 $fh.ready(function() {
-  $fh.init(config);
+  //$fh.init(config);
   
   $fh.init(config, function(res) {
   // Init call was successful. Alert the response
