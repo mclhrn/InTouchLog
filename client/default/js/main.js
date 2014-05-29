@@ -1,5 +1,9 @@
 var app = angular.module('inTouchLogApp', ['ui.bootstrap', 'inTouchLogApp.directives', 'inTouchLogApp.services', 'ngRoute','ngTouch']);
 
+myApp.controller('GreetingController', ['$scope', function($scope) {
+  $scope.greeting = 'Hola!';
+}]);
+
 /*
 
 app.config(['$routeProvider',
