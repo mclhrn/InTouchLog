@@ -27,6 +27,7 @@ app.controller('ctrlList', ['$scope', '$location', 'LoginService', 'MultiTicketL
             $location.path('/login');
         }
 */
+console.log("tim is here");
         MultiTicketLoader.getTickets();
         $scope.tickets = JSON.parse(localStorage.getItem('intouchtickets'));
         if(!$scope.$$phase) {
