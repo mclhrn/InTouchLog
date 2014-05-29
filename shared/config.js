@@ -16,6 +16,6 @@ to be bundled with the app when it is built, but also allowing the latest versio
 retrieved by the app from the cloud on start up.
 */
 
-var config = {"analyticsTag":{"tag_name":"","updated":1400844912084},"appid":"Nb1beF43RO6RxvWKVZxDjl8D","appkey":"d8f2c452cfddaa34324cc54dc7530c3af7bf2b24","host":"http://127.0.0.1:8000","mode":"dev"};
+var config = {"analyticsTag":{"tag_name":"","updated":1400844912084},"appid":"Nb1beF43RO6RxvWKVZxDjl8D","appkey":"d8f2c452cfddaa34324cc54dc7530c3af7bf2b24","host":"https://keenansystem.feedhenry.com/","mode":"dev"};
 
 exports.config = config;
