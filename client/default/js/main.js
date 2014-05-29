@@ -9,7 +9,8 @@ app.config(['$routeProvider',
 
         $routeProvider
         .when('/', {
-                controller: 'GreetingController'
+                controller: 'GreetingController',
+                templateUrl: 'templates/ticketlst.html'
         });
         /*
             .when('/', {
