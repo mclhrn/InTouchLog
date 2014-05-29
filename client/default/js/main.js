@@ -5,6 +5,9 @@ app.config(['$routeProvider',
 
         $routeProvider
             .when('/', {
+                templateUrl: '../templates/home.html'
+            })
+            .when('/list', {
                 controller: 'ctrlList',
                 templateUrl: '../templates/ticketlst.html'
             })
