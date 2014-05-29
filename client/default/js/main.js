@@ -1,5 +1,5 @@
 var app = angular.module('inTouchLogApp', ['ui.bootstrap', 'inTouchLogApp.directives', 'inTouchLogApp.services', 'ngRoute','ngTouch']);
-
+/*
 app.config(['$routeProvider',
     function($routeProvider, $location){
 
@@ -22,12 +22,6 @@ app.config(['$routeProvider',
 app.controller('ctrlList', ['$scope', '$location', 'LoginService', 'MultiTicketLoader',
     function($scope, $location, LoginService, MultiTicketLoader){
 
-        /*
-        if(!LoginService.isAuth()) {
-            $location.path('/login');
-        }
-*/
-console.log("tim is here");
         MultiTicketLoader.getTickets();
         $scope.tickets = JSON.parse(localStorage.getItem('intouchtickets'));
         if(!$scope.$$phase) {
@@ -43,11 +37,6 @@ console.log("tim is here");
             localStorage.removeItem('intouchlogauth');
         };
 
-        /*
-        $scope.tickets = MultiTicketLoader.getTickets;
-        console.log('tom is not here');
-        $scope.$apply();
-        */
     }
 ]);
 
@@ -169,7 +158,6 @@ app.controller('ctrlLogin', function($scope, $location) {
     };
 });
 
-//http://plnkr.co/edit/bfpma2?p=preview login example
 app.controller('ctrlLoadModal', ['$scope', '$modal', '$log', 'LoadLoader', function ($scope, $modal, $log, LoadLoader) {
 
     $scope.open = function (size, ticket, loadid) {
@@ -189,9 +177,6 @@ app.controller('ctrlLoadModal', ['$scope', '$modal', '$log', 'LoadLoader', funct
         });
     };
 }]);
-
-// Please note that $modalInstance represents a modal window (instance) dependency.
-// It is not the same as the $modal service used above.
 
 app.controller('ctrlLoadModalInstance', ['$scope', '$modalInstance', 'items', 'loadno', function ($scope, $modalInstance, items, loadno) {
 
@@ -237,97 +222,5 @@ app.controller('ctrlEditModalInstance', ['$scope', '$modalInstance', 'ticket', '
         $modalInstance.dismiss('cancel');
     };
 
-    /*
-    function changeCompletedDate(newValue, oldValue, scope) {
-
-        if(newValue.STATUS === "Closed" && oldValue.STATUS != "Closed"){
-            $scope.tRequired = true;
-        }
-        else{
-            $scope.tRequired = false;
-        }
-        console.log($scope.tRequired);
-
-    };
-
-    $scope.$watch($scope.ticket,changeCompletedDate);
-*/
 }]);
-
-    /*
-
-     http://docs.feedhenry.com/v2/api_client_hybrid.html#$fh.data
-     https://github.com/feedhenry-training/OAuth-Tutorial/blob/master/client/default/js/FHOAuthUsers.js
-     http://stackoverflow.com/questions/2010892/storing-objects-in-html5-localstorage
-     http://www.w3schools.com/html/html5_webstorage.asp
-     http://stackoverflow.com/questions/3718349/html5-localstorage-security
-     http://amitavroy.com/justread/content/articles/html5-local-storage-angular-js
-     https://docs.angularjs.org/api/ngResource/service/$resource
-
-     app.config(['$urlRouterProvider', '$stateProvider',
-     function($urlRouterProvider, $stateProvider){
-     $urlRouterProvider.otherwise(('/'));
-     $stateProvider
-     .state('home',{
-     url:'/',
-     templateUrl: 'templates/home.html'
-     }
-
-     )
-     .state('Login', {
-     url: '/login',
-     templateUrl: 'templates/login.html'
-     }
-     )
-     .state('ticketlst', {
-     url: '/ticketlst',
-     templateUrl: 'templates/ticketlst.html'
-     }
-     )
-     .state('ticketdtl', {
-     url: '/ticketdtl',
-     templateUrl: 'templates/ticketdtl.html'
-     }
-     )
-     }]);
-
-    // Load data into memory
-    $fh.data({
-        act: "save",
-        key: "tickets",
-        val
-    })
-
-    $scope.tickets = [];
-
-    $scope.tickets = function() {
-    $fh.act({
-        act: 'tickets'
-        },
-        function(res) {
-           return res.data
-        },
-        function(code, errorprops) {
-            console.error('An error occured: ' + code + ' : ' + JSON.stringify(errorprops));
-        });
-    };
-});
-
-
-function ctrlTicketLst($scope, $http) {
-
-    $scope.tickets = [];
-
-    $scope.tickets = function() {
-        var httpRequest = $http({
-            method: 'POST',
-            url: '/AppData/',
-            data: mockDataForThisTest
-
-        }).success(function(data, status) {
-            $scope.people = data;
-        });
-
-    };
-)
 */
