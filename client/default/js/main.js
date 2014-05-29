@@ -2,6 +2,7 @@ var app = angular.module('inTouchLogApp', ['ui.bootstrap', 'inTouchLogApp.direct
 
 app.controller('GreetingController', ['$scope', function($scope) {
   $scope.greeting = 'Hola!';
+  console.log('yoo');
 }]);
 
 /*
