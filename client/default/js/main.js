@@ -38,9 +38,7 @@ app.controller('ctrlList', ['$scope', '$location', 'LoginService', 'MultiTicketL
         };
     }
 ]);
-*/
 
-/*
 app.controller('ctrlView', ['$scope', '$location', 'TicketLoader', 'LoginService', function($scope, $location, TicketLoader, LoginService) {
 
     if(!LoginService.isAuth()) {
