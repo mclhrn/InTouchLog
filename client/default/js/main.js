@@ -10,7 +10,7 @@ app.config(['$routeProvider',
             })
             .when('/login', {
                 controller: 'ctrlLogin',
-                templateUrl: 'templates/login.html'
+                templateUrl: 'templates/Login.html'
             })
             .when('/view/:ticketid', {
                 controller: 'ctrlView',
