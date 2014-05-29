@@ -24,7 +24,7 @@ var config = {
 //    },
     "appid":"Nb1beF43RO6RxvWKVZxDjl8D",
     "appkey":"d8f2c452cfddaa34324cc54dc7530c3af7bf2b24",
-    "host":"http://127.0.0.1:8000",
+    "host":"https://keenansystem.feedhenry.com",
     "mode":"dev"
 };
 exports.config = config;
