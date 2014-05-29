@@ -23,6 +23,7 @@ app.config(['$routeProvider',
 app.controller('ctrlList', ['$scope', '$location', 'LoginService', 'MultiTicketLoader',
     function($scope, $location, LoginService, MultiTicketLoader){
 
+/*
         MultiTicketLoader.getTickets();
         $scope.tickets = JSON.parse(localStorage.getItem('intouchtickets'));
         if(!$scope.$$phase) {
@@ -37,7 +38,7 @@ app.controller('ctrlList', ['$scope', '$location', 'LoginService', 'MultiTicketL
         $scope.clearAuth = function(){
             localStorage.removeItem('intouchlogauth');
         };
-
+*/
     }
 ]);
 
