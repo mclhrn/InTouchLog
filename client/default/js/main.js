@@ -1,6 +1,6 @@
 var app = angular.module('inTouchLogApp', ['ui.bootstrap', 'inTouchLogApp.directives', 'inTouchLogApp.services', 'ngRoute','ngTouch']);
 
-app.config(['$routeProvider',
+app.config(['$routeProvider', '$location',
     function($routeProvider, $location){
 
         $routeProvider
