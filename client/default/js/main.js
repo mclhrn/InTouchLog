@@ -40,9 +40,9 @@ app.controller('ctrlList', ['$scope', '$location', 'LoginService', 'MultiTicketL
         $scope.clearAuth = function(){
             localStorage.removeItem('intouchlogauth');
         };
-*/
     }
 ]);
+*/
 
 /*
 app.controller('ctrlView', ['$scope', '$location', 'TicketLoader', 'LoginService', function($scope, $location, TicketLoader, LoginService) {
