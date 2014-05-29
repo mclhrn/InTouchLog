@@ -9,6 +9,14 @@ call which will return the remote config.
 $fh.ready(function() {
   $fh.init(config);
   
+  $fh.init(config, function(res) {
+  // Init call was successful. Alert the response
+  alert('Got response from init:' + JSON.stringify(res));
+}, function(msg, err) {
+  // An error occured during the init call. Alert some debugging information
+  alert('Init call failed with error:' + msg + '. Error properties:' + JSON.stringify(err));
+  });
+  
   // The local config variable from config.js can be accessed directly
  // document.getElementById('localConfig').innerHTML = "<p>" + JSON.stringify(config) + "</p>";
 
