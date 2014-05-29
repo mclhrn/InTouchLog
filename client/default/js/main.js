@@ -22,10 +22,11 @@ app.config(['$routeProvider',
 app.controller('ctrlList', ['$scope', '$location', 'LoginService', 'MultiTicketLoader',
     function($scope, $location, LoginService, MultiTicketLoader){
 
+        /*
         if(!LoginService.isAuth()) {
             $location.path('/login');
         }
-
+*/
         MultiTicketLoader.getTickets();
         $scope.tickets = JSON.parse(localStorage.getItem('intouchtickets'));
         if(!$scope.$$phase) {
