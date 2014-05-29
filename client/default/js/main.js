@@ -1,5 +1,4 @@
 var app = angular.module('inTouchLogApp', ['ui.bootstrap', 'inTouchLogApp.directives', 'inTouchLogApp.services', 'ngRoute','ngTouch']);
-/*
 app.config(['$routeProvider',
     function($routeProvider, $location){
 
@@ -8,6 +7,7 @@ app.config(['$routeProvider',
                 controller: 'ctrlList',
                 templateUrl: '../templates/ticketlst.html'
             })
+/*
             .when('/login', {
                 controller: 'ctrlLogin',
                 templateUrl: '../templates/login.html'
@@ -16,7 +16,8 @@ app.config(['$routeProvider',
                 controller: 'ctrlView',
                 templateUrl: '../templates/ticketview.html'
             })
-            .otherwise({redirect: '/'});
+*/
+           .otherwise({redirect: '/'});
 }]);
 
 app.controller('ctrlList', ['$scope', '$location', 'LoginService', 'MultiTicketLoader',
@@ -40,6 +41,7 @@ app.controller('ctrlList', ['$scope', '$location', 'LoginService', 'MultiTicketL
     }
 ]);
 
+/*
 app.controller('ctrlView', ['$scope', '$location', 'TicketLoader', 'LoginService', function($scope, $location, TicketLoader, LoginService) {
 
     if(!LoginService.isAuth()) {
