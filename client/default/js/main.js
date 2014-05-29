@@ -1,12 +1,5 @@
 var app = angular.module('inTouchLogApp', ['ui.bootstrap', 'inTouchLogApp.directives', 'inTouchLogApp.services', 'ngRoute','ngTouch']);
 
-app.controller('GreetingController', ['$scope', function($scope) {
-  $scope.greeting = 'Hola!';
-  console.log('yoo');
-}]);
-
-/*
-
 app.config(['$routeProvider',
     function($routeProvider, $location){
 
@@ -25,6 +18,7 @@ app.config(['$routeProvider',
             })
            .otherwise({redirect: '/'});
 }]);
+/*
 */
 
 /*
